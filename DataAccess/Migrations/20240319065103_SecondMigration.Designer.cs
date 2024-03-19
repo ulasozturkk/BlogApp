@@ -3,6 +3,7 @@ using System;
 using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319065103_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +61,8 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<int>("ViewCount")
                         .HasColumnType("integer");
@@ -74,20 +77,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("ImageId");
 
                     b.ToTable("Articles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("852e041e-4ed4-43a4-8ee4-91832d978db1"),
-                            CategoryId = new Guid("77ebf623-09be-411f-9165-04dc3ba68d94"),
-                            Content = "lorem ipsum sdfngjksdfgmdfjsgnsdfglsdfngsdflşkgnsdlfkgnklsdifngşlksdfnglkşsdfngsşdlfkgnskldfgşsldfgsfgsdfgsdfg",
-                            CreatedBy = "Admin Test",
-                            CreatedDate = new DateTime(2024, 3, 19, 7, 19, 19, 159, DateTimeKind.Utc).AddTicks(9130),
-                            ImageId = new Guid("bd316f53-95cb-48c9-931b-528d141e4e8e"),
-                            Title = "dotnet Deneme makalesi 1",
-                            ViewCount = 15,
-                            isDeleted = false
-                        });
                 });
 
             modelBuilder.Entity("Entity.Entities.Category", b =>
@@ -125,24 +114,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("77ebf623-09be-411f-9165-04dc3ba68d94"),
-                            CreatedBy = "Admin Test",
-                            CreatedDate = new DateTime(2024, 3, 19, 7, 19, 19, 159, DateTimeKind.Utc).AddTicks(9300),
-                            Name = "dotnet core",
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("19f32511-de5a-4234-99a5-503417225df4"),
-                            CreatedBy = "Admin Test",
-                            CreatedDate = new DateTime(2024, 3, 19, 7, 19, 19, 159, DateTimeKind.Utc).AddTicks(9310),
-                            Name = "visual studip core",
-                            isDeleted = false
-                        });
                 });
 
             modelBuilder.Entity("Entity.Entities.Image", b =>
@@ -184,26 +155,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("bd316f53-95cb-48c9-931b-528d141e4e8e"),
-                            CreatedBy = "Admin test",
-                            CreatedDate = new DateTime(2024, 3, 19, 7, 19, 19, 159, DateTimeKind.Utc).AddTicks(9370),
-                            FileName = "images/testimage",
-                            FileType = "jpg",
-                            isDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("14b15696-c3b9-4f50-b42e-64455b8ef0dc"),
-                            CreatedBy = "Admin test",
-                            CreatedDate = new DateTime(2024, 3, 19, 7, 19, 19, 159, DateTimeKind.Utc).AddTicks(9370),
-                            FileName = "images/vstest",
-                            FileType = "jpg",
-                            isDeleted = false
-                        });
                 });
 
             modelBuilder.Entity("Entity.Entities.Article", b =>
